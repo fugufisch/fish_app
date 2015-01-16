@@ -42,8 +42,13 @@ shinyServer(function(input, output) {
   data_f_plot <- reactive({
   #data_f %>%
     data_f_ggvis %>%
-    ggvis( ~x, ~y, fill= ~ID, key := ~time, shape = ~origin) %>%
-    layer_points()   %>%
+    ggvis( ~x, ~y ) %>%
+    layer_points(fill= ~ID, key := ~time, shape = ~origin)   %>%
+    layer_paths( data=lake ) %>%
+    add_axis("x", title = "", ticks=0 ) %>%
+    add_axis("y", title = "", ticks=0 ) %>%
+    add_legend(scales = "shape", properties = legend_props(legend = list(y = 100))) %>%
+    #add_legend( "shape" ) %>% #c("shape","fill") ) %>%
     add_tooltip(tooltip, "hover")
   })
 
